@@ -26,6 +26,8 @@ from flask import Blueprint, jsonify, abort, make_response, request
 
 books_bp = Blueprint("books", __name__, url_prefix="/books")
 
+
+
 def validate_book(book_id):
         try:
             book_id = int(book_id)
@@ -35,7 +37,7 @@ def validate_book(book_id):
         book = Book.query.get(book_id)
 
         if not book:
-            abort(make_response({"message": f"book {book_id} not found"}, 404))
+            abort(make_response(jsonify({"message": f"book {book_id} not found"}), 404))
         return book
 
         # for book in books:
@@ -54,6 +56,7 @@ def write_books():
     db.session.commit()
 
     return make_response(jsonify(f"Book {new_book.title} successfully created"), 201)
+
 
 @books_bp.route("", methods=["GET"])
 def read_all_books():

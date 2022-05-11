@@ -53,6 +53,7 @@ def test_get_from_empty_db(client):
 
     # Assert
     assert response.status_code == 404
+    assert response_body == "book 1 not found"
 
 def test_get_all_book(client, two_saved_books):
     # Act
